@@ -3,8 +3,8 @@
   The head means the beginning of the array, or the zeroth index.
 
   Here are some helpful links:
-    Array.slice() - []
-    Array.splice() - []
+    Array.slice() - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice]
+    Array.splice() - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice]
 */
 
 function slasher(arr, howMany) {
