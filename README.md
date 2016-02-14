@@ -1,2 +1,2 @@
 # freecodecamp-algorithm
-FreeCodeCamp algorithm problems solutions
+FreeCodeCamp course basic and intermediate algorithm problems solutions.
