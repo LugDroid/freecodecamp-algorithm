@@ -4,12 +4,16 @@
 
 function spinalCase(str) {
 
-  // add spaces between words
-  var regExp = /([A-Z])/g;
-  str = str.replace(regExp, " $1");
+  // add dashes between words
+  var regExp1 = /([a-z])([A-Z])/g;
+  str = str.replace(regExp1, "$1-$2");
+
+  // replace spaces and low dashes
+  var regExp2 = /\s|_(\w)/g;
+  str = str.replace(regExp2, "-$1");
 
   // convert string to lower case
-  //str = str.toLowerCase();
+  str = str.toLowerCase();
 
   return str;
 }
