@@ -5,9 +5,37 @@
     Global Array Object - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array]
 */
 
-function inventory(arr1, arr2) {
-    // All inventory must be accounted for or you're fired!
-    return arr1;
+function updateInventory(arr1, arr2) {
+  // add new elements to current inventory
+  for (var i = 0, len2 = arr2.length; i < len2; i++) {
+    var inInventory = false;
+    for (var j = 0, len1 = arr1.length; j < len1; j++) {
+      // if element is already in inventory update quantity
+      if (arr2[i][1] === arr1[j][1]) {
+        inInventory = true;
+        arr1[j][0] += arr2[i][0];
+      }
+    }
+    // if element is not in inventory
+    if (!inInventory) {
+      console.log(arr2[i][1] + ' is not found in current inventory');
+      arr1.push(arr2[i]);
+    }
+  }
+
+  // sort array alphabetically
+  arr1.sort(function(a, b) {
+    if (a[1] < b[1]) {
+      return -1;
+    }
+    if (a[1] > b[1]) {
+      return 1;
+    }
+    // a must be equal to b
+    return 0;
+  });
+
+  return arr1;
 }
 
 // Example inventory lists
@@ -24,3 +52,5 @@ var newInv = [
     [67, "Bowling Ball"],
     [7, "Toothpaste"]
 ];
+
+console.log(updateInventory(curInv, newInv));
