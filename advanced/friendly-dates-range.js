@@ -43,22 +43,11 @@ function makeFriendlyDates(arr) {
   initDate[1] = months[initDate[1] - 1];
   endDate[1] = months[endDate[1] - 1];
 
-  // // add formatted information to return strings
-  // var initFriendlyDate = initDate[1] + ' ' + fixDayFormat(initDate[2]);
-  // if ((initYear != 2016) || (initYear != endYear)) {
-  //   initFriendlyDate += ', ' + initYear;
-  // }
-  // var endFriendlyDate = '';
-  // if (initMonth != endMonth) {
-  //   endFriendlyDate += endMonth + ' ';
-  // }
-  // endFriendlyDate += fixDayFormat(endDay);
-  // if (initYear != endYear) {
-  //   endFriendlyDate += ', ' + endYear;
-  // }
-  // arr = [initFriendlyDate, endFriendlyDate];
+  // add formatted information to return strings
+  initDate = initDate[1] + ' ' + initDate[2] + ', ' + initDate[0];
+  endDate = endDate[1] + ' ' + endDate[2] + ', ' + endDate[0];
 
-  return [initDate.join(' '), endDate.join(' ')];
+  return [initDate, endDate];
 }
 
 console.log(makeFriendlyDates(['2016-07-01', '2016-07-04'])); // should return ["July 1st","4th"]
