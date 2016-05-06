@@ -5,36 +5,39 @@ For example, aab should return 2 because it has 6 total permutations (aab, aab, 
 */
 
 function permAlone(str) {
-  // split string into array of characters
-  var arr = str.split('');
-
-  // generate all possible permutations
-  generate(arr.length, arr);
-  return arr;
-}
-
-function generate(n, a) {
-  if (n == 1) {
-    console.log(a);
-    return;
-  } else {
-    for (var i = 0; i < (n - 1); i++) {
-      generate(n - 1, a);
-      var temp;
-      // if even
-      if ((n % 2) == 0) {
-        temp = a[i];
-        a[i] = a[n - 1];
-        a[n - 1] = temp;
-      // if odd
-      } else {
-        temp = a[0];
-        a[0] = a[n - 1];
-        a[n - 1] = temp;
+  var  permutations = [];
+  
+  // recursive function to generate permutations
+  function generate(n, a) {
+    if (n == 1) {
+      permutations.push(a.join(''));
+    } else {
+      for (var i = 0; i < (n - 1); i++) {
+        generate(n - 1, a);
+        var temp;
+        // if even
+        if ((n % 2) === 0) {
+          swap(i, n - 1);
+        // if odd
+        } else {
+          swap(0, n - 1);
+        }
       }
+      generate(n - 1, a);
     }
-    generate(n - 1, a);
+    
+    // swap elements function
+    function swap(i, j) {
+      var temp = a[i];
+      a[i] = a[j];
+      a[j] = temp;
+    }
   }
+  
+
+
+  generate(str.length, str.split(''));
+  return permutations;
 }
 
 permAlone('abc');
