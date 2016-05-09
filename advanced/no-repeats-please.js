@@ -35,9 +35,17 @@ function permAlone(str) {
   }
   
 
-
+  // generate all possible permutations
   generate(str.length, str.split(''));
-  return permutations;
+  
+  // count permutations without repeated consecutive letters
+  var count = 0;
+  var regExp = /(.)\1/;
+  for (var i = 0; i < permutations.length; i++) {
+    if (permutations[i].match(regExp) === null)
+      count++;
+  }
+  return count;
 }
 
-permAlone('abc');
+console.log(permAlone('aab'));
