@@ -13,6 +13,7 @@ If the range ends in the same month that it begins, do not display the ending ye
 
 function makeFriendlyDates(arr) {
 
+  var CURRENT_YEAR = 2016;
   var tempDate;
   var rInitDate = '';
   var rEndDate = '';
@@ -40,7 +41,9 @@ function makeFriendlyDates(arr) {
   function isLessThanYear(initDate, returnDate) {
     if (initDate.numYear === endDate.numYear) {
       return true;
-    } else if ((initDate.numYear + 1 === endDate.numYear) && ((endDate.numMonth + 12) - initDate.numMonth <= 12)) {
+    } else if ((initDate.numYear + 1 === endDate.numYear) && ((endDate.numMonth + 12) - initDate.numMonth < 12)) {
+      return true;
+    } else if ((initDate.numYear + 1 === endDate.numYear) && (endDate.numMonth === initDate.numMonth) && (initDate.numDay > endDate.numDay)) {
       return true;
     } else {
      return false;
@@ -67,21 +70,33 @@ function makeFriendlyDates(arr) {
     strYear: tempDate[0]
   };
 
-  // add month to formatted strings
-  rInitDate = initDate.strMonth;
-  rEndDate = ((initDate.numMonth === endDate.numMonth)? '' : endDate.strMonth);
+  // create start date return string
+  rInitDate = initDate.strMonth + ' ' + initDate.strDay;
 
-  // add day
-  rInitDate += ' ' + initDate.strDay;
-  rEndDate += (((initDate.numYear === endDate.numYear) &&
-                (initDate.numMonth === endDate.numMonth) &&
-                (initDate.numDay === endDate.numMonth))? '' : ' ' + endDate.strDay);
+  // add year if not current year
+  if ((initDate.numYear !== CURRENT_YEAR) || !(isLessThanYear(initDate, endDate))) {
+    rInitDate += ', ' + initDate.strYear;
+  }
 
-  // add year
-  rInitDate += (((initDate.numYear === 2016) && (isLessThanYear(initDate, endDate)))? '' : ', ' + initDate.strYear);
-  rEndDate += (isLessThanYear(initDate, endDate)? '' : ', ' + endDate.strYear);
+  // create return date return strings
+  if (!((initDate.numYear === endDate.numYear) && (initDate.numMonth === endDate.numMonth) && (initDate.numDay === endDate.numDay))) {
+    rEndDate = endDate.strDay;
+  }
 
-  return [rInitDate, rEndDate];
+  // add month info
+  if (!((initDate.numYear === endDate.numYear) && (initDate.numMonth === endDate.numMonth))) {
+    rEndDate = endDate.strMonth + ' ' + endDate.strDay;
+  }
+
+  // add year info
+  if (!(isLessThanYear(initDate, endDate))) {
+    rEndDate += ', ' + endDate.strYear;
+  }
+
+  if (rEndDate !== '') {
+    return [rInitDate, rEndDate];
+  }
+  return [rInitDate];
 }
 
 console.log(makeFriendlyDates(['2016-07-01', '2016-07-04'])); // should return ["July 1st","4th"]
