@@ -18,11 +18,16 @@ Below we'll take their corresponding indices and add them.
 
 function pairwise(arr, arg) {
   var result = 0;
+  var usedIndex = [];
 
   for (var i = 0, len = arr.length; i < len; i++) {
     for (var j = i + 1; j < len; j++) {
-      if (arr[i] + arr[j] === arg) {
-        result += i + j;
+      // check if index has alreacy been used
+      if ((usedIndex.indexOf(i) === -1) && (usedIndex.indexOf(j) === -1)) {
+        if (arr[i] + arr[j] === arg) {
+          result += i + j;
+          usedIndex.push(i, j);
+        }
       }
     }
   }
